@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-import prisma from '@/lib/prisma'
-import  Report  from "@prisma/client";
 import { ReportType } from "@/lib/generated/prisma";
+import  prisma from "@/lib/prisma";
 
 export async function POST(request:Request) {
     try {
