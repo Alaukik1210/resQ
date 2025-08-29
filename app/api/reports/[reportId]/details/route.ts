@@ -4,25 +4,21 @@ import { getServerSession } from "next-auth";
 
 const prisma = new PrismaClient();
 
-
 export async function GET(
   request: Request,
   { params }: { params: { reportId: string } }
 ) {
   try {
-    const { reportId } = await params;
+    const { reportId } = params;
 
     const report = await prisma.report.findUnique({
       where: {
-        reportId: reportId, 
+        reportId: reportId,
       },
     });
 
     if (!report) {
-      return NextResponse.json(
-        { error: "Report not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Report not found" }, { status: 404 });
     }
 
     return NextResponse.json(report, { status: 200 });
@@ -37,7 +33,7 @@ export async function GET(
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { reportId: string } }
 ) {
   try {
     const session = await getServerSession();
@@ -46,13 +42,15 @@ export async function PATCH(
     }
 
     const { status } = await request.json();
+
     const report = await prisma.report.update({
-      where: { id: params.id },
+      where: { reportId: params.reportId },
       data: { status },
     });
 
-    return NextResponse.json(report);
+    return NextResponse.json(report, { status: 200 });
   } catch (error) {
+    console.error("Error updating report:", error);
     return NextResponse.json(
       { error: "Error updating report" },
       { status: 500 }
