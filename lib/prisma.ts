@@ -3,8 +3,8 @@ import { PrismaClient } from "@/lib/generated/prisma";
 declare global {
   var prisma: PrismaClient | undefined;
 }
+let prisma: PrismaClient;
 
-let prisma: any;
 if (process.env.NODE_ENV === "production") {
   prisma = new PrismaClient();
 } else {
@@ -13,4 +13,5 @@ if (process.env.NODE_ENV === "production") {
   }
   prisma = global.prisma;
 }
+
 export default prisma;
