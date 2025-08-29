@@ -1,1 +1,14 @@
-lib/generated/prisma/**
+# Generated files
+lib/generated/
+**/generated/
+prisma/generated/
+node_modules/
+.next/
+out/
+build/
+next-env.d.ts
+
+# Prisma runtime files
+**/prisma/runtime/
+**/*wasm-engine-edge.js
+**/*query-engine-edge.js
