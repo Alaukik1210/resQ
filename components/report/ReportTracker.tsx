@@ -128,7 +128,7 @@ export function ReportTracker() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-sky-500 to-blue-600 
+                className="w-full bg-gradient-to-r  cursor-pointer  from-sky-500 to-blue-600 
                          text-white py-3 px-4 rounded-xl hover:from-sky-400 
                          hover:to-blue-500 transition-all duration-200 
                          disabled:opacity-50 disabled:cursor-not-allowed

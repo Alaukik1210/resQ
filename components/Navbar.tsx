@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-// import MobileMenu from "./MobileMenu";
+import MobileMenu from "./MobileMenu";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -56,29 +56,24 @@ export default function Navbar() {
                 How It Works
               </Link>
               <Link
-                href="/resources"
+                 href="/auth/signin"
                 className="text-sm text-zinc-400 hover:text-white transition-colors"
               >
-                Resources
+                Admin?
               </Link>
             </div>
 
             {/* Emergency Button */}
             <div className="flex items-center space-x-4">
-              <Link
-                href="/contact"
-                className="hidden md:block text-sm text-zinc-400 hover:text-white transition-colors"
-              >
-                Contact
-              </Link>
-              <button className="group flex h-9 items-center gap-2 rounded-full bg-red-500/10 pl-4 pr-5 text-sm font-medium text-red-500 ring-1 ring-inset ring-red-500/20 transition-all hover:bg-red-500/20">
+              
+              <button className="group flex h-9 cursor-pointer  items-center gap-2 rounded-full bg-red-500/10 pl-4 pr-5 text-sm font-medium text-red-500 ring-1 ring-inset ring-red-500/20 transition-all hover:bg-red-500/20">
                 <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />
                 Emergency: 112
               </button>
 
               {/* Mobile Menu Button */}
               <button
-                className="md:hidden p-2 text-zinc-400 hover:text-white"
+                className="md:hidden p-2 text-zinc-400 cursor-pointer  hover:text-white"
                 onClick={() => setIsMobileMenuOpen(true)}
               >
                 <svg
@@ -100,10 +95,10 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* <MobileMenu
+      <MobileMenu
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
-      /> */}
+      />
     </>
   );
 }

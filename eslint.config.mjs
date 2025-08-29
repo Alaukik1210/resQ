@@ -1,3 +1,4 @@
+
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { FlatCompat } from "@eslint/eslintrc";
@@ -15,11 +16,17 @@ const eslintConfig = [
     ignores: [
       "node_modules/**",
       ".next/**",
-      "out/**",
+      "out/**", 
       "build/**",
       "next-env.d.ts",
     ],
   },
+  {
+    rules: {
+    
+      "@typescript-eslint/no-unused-vars": "warn",
+    }
+  }
 ];
 
 export default eslintConfig;

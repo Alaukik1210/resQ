@@ -2,7 +2,7 @@
 
 import { signIn } from "next-auth/react";
 import { useState } from "react";
-import { redirect, useRouter } from "next/navigation";
+import {  useRouter } from "next/navigation";
 
 
 export default function SignIn() {
@@ -104,10 +104,10 @@ export default function SignIn() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="w-full flex justify-center cursor-pointer py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {isLoading ? (
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <div className="w-5 h-5 border-2 cursor-pointer border-white border-t-transparent rounded-full animate-spin" />
                 ) : (
                   "Sign in"
                 )}

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    // <div className="relative min-h-screen bg-black selection:bg-sky-500/20 overflow-hidden">
+    
     <main className="relative px-6 pt-32">
       <div className="mx-auto max-w-5xl">
         {/* Hero Section */}
@@ -39,7 +39,7 @@ export default function Home() {
 
           <div className="mt-10 flex flex-col sm:flex-row gap-4">
             <Link href={"/submit-report"}>
-              <button className="group relative flex h-12 items-center justify-center gap-2 rounded-xl bg-sky-500 px-8 text-sm font-medium text-white transition-all hover:bg-sky-400">
+              <button className="group relative flex h-12 cursor-pointer items-center justify-center gap-2 rounded-xl bg-sky-500 px-8 text-sm font-medium text-white transition-all hover:bg-sky-400">
                 Make Anonymous Report
                 <svg
                   className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
@@ -57,7 +57,7 @@ export default function Home() {
               </button>
             </Link>
             <Link href={"/how-it-works"}>
-              <button className="flex h-12 items-center justify-center gap-2 rounded-xl bg-white/5 px-8 text-sm font-medium text-white ring-1 ring-inset ring-white/10 transition-all hover:bg-white/10">
+              <button className="flex h-12 items-center justify-center gap-2 cursor-pointer rounded-xl bg-white/5 px-8 text-sm font-medium text-white ring-1 ring-inset ring-white/10 transition-all hover:bg-white/10">
                 How it Works
               </button>
             </Link>

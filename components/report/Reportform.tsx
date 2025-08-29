@@ -15,7 +15,7 @@ const REPORT_TYPES = [
 type ReportType = "EMERGENCY" | "NON_EMERGENCY";
 
 interface ReportFormProps {
-  onComplete: (data: any) => void;
+  onComplete: (data) => void;
 }
 
 export function ReportForm({ onComplete }: ReportFormProps) {
@@ -129,7 +129,7 @@ export function ReportForm({ onComplete }: ReportFormProps) {
           onClick={() =>
             setFormData((prev) => ({ ...prev, incidentType: "EMERGENCY" }))
           }
-          className={`p-6 rounded-2xl border-2 transition-all duration-200 ${
+          className={`p-6 rounded-2xl border-2 transition-all  cursor-pointer  cursor-pointer  duration-200 ${
             formData.incidentType === "EMERGENCY"
               ? "bg-red-500/20 border-red-500 shadow-lg shadow-red-500/20"
               : "bg-zinc-900/50 border-zinc-800 hover:bg-red-500/10 hover:border-red-500/50"
@@ -161,7 +161,7 @@ export function ReportForm({ onComplete }: ReportFormProps) {
           onClick={() =>
             setFormData((prev) => ({ ...prev, incidentType: "NON_EMERGENCY" }))
           }
-          className={`p-6 rounded-2xl border-2 transition-all duration-200 ${
+          className={`p-6 rounded-2xl border-2 transition-all cursor-pointer  duration-200 ${
             formData.incidentType === "NON_EMERGENCY"
               ? "bg-orange-500/20 border-orange-500 shadow-lg shadow-orange-500/20"
               : "bg-zinc-900/50 border-zinc-800 hover:bg-orange-500/10 hover:border-orange-500/50"
@@ -209,6 +209,7 @@ export function ReportForm({ onComplete }: ReportFormProps) {
                   src={image}
                   alt="Preview"
                   className="w-full h-full object-cover"
+                  fill
                 />
               </div>
               <p className="text-sm text-zinc-400">Click to change image</p>

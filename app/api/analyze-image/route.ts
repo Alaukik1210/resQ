@@ -1,12 +1,19 @@
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
+
+const api = process.env.GEMENI_API_KEY
+
+const genAI = new GoogleGenerativeAI(api);
 
 export async function POST(request: Request) {
   try {
     const { image } = await request.json();
     const base64Data = image.includes(",") ? image.split(",")[1] : image;
+
+    const mimeType = image.startsWith("data:image/png")
+      ? "image/png"
+      : "image/jpeg";
 
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
@@ -20,15 +27,15 @@ DESCRIPTION: Write a clear, concise description`;
       {
         inlineData: {
           data: base64Data,
-          mimeType: "image/jpeg",
+          mimeType,
         },
       },
     ]);
 
     const text = result.response.text();
 
-    const titleMatch = text.match(/TITLE:\s*(.+)/);
-    const typeMatch = text.match(/TYPE:\s*(.+)/);
+    const titleMatch = text.match(/TITLE:\s*(.+?)(?=\n|$)/);
+    const typeMatch = text.match(/TYPE:\s*(.+?)(?=\n|$)/);
     const descMatch = text.match(/DESCRIPTION:\s*([\s\S]+)/);
 
     return NextResponse.json({
