@@ -6,15 +6,13 @@ const prisma = new PrismaClient();
 
 export async function GET(
   request: Request,
-  { params }: { params: { reportId: string } }
+  context: { params: Promise<{ reportId: string }> }
 ) {
   try {
-    const { reportId } = params;
+    const { reportId } = await context.params; 
 
     const report = await prisma.report.findUnique({
-      where: {
-        reportId: reportId,
-      },
+      where: { reportId },
     });
 
     if (!report) {
@@ -33,7 +31,7 @@ export async function GET(
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { reportId: string } }
+  context: { params: Promise<{ reportId: string }> }
 ) {
   try {
     const session = await getServerSession();
@@ -41,10 +39,11 @@ export async function PATCH(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const { reportId } = await context.params; 
     const { status } = await request.json();
 
     const report = await prisma.report.update({
-      where: { reportId: params.reportId },
+      where: { reportId },
       data: { status },
     });
 
