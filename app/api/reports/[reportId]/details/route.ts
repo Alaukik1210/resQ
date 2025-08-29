@@ -1,17 +1,20 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { getServerSession } from "next-auth";
 
 const prisma = new PrismaClient();
 
 export async function GET(
-  request: Request,
-  { params }: { params: { reportId: string } }
+  request: NextRequest,
+  { params }: { params: Promise<{ reportId: string }> }
 ) {
   try {
+    // Await the params Promise
+    const { reportId } = await params;
+    
     const report = await prisma.report.findUnique({
       where: {
-        reportId: params.reportId,
+        reportId: reportId,
       },
     });
 
@@ -30,8 +33,8 @@ export async function GET(
 }
 
 export async function PATCH(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  { params }: { params: Promise<{ reportId: string }> }
 ) {
   try {
     const session = await getServerSession();
@@ -39,9 +42,12 @@ export async function PATCH(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    // Await the params Promise
+    const { reportId } = await params;
     const { status } = await request.json();
+    
     const report = await prisma.report.update({
-      where: { id: params.id },
+      where: { reportId: reportId }, // Use reportId instead of id to match GET method
       data: { status },
     });
 
