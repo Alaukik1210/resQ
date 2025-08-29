@@ -1,25 +1,25 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@/lib/generated/prisma";
+import { PrismaClient } from "@prisma/client";
 import { getServerSession } from "next-auth";
 
 const prisma = new PrismaClient();
 
 export async function GET(
   request: Request,
-  context: { params: Promise<{ reportId: string }> }
+  { params }: { params: { reportId: string } }
 ) {
   try {
-    const { reportId } = await context.params; 
-
     const report = await prisma.report.findUnique({
-      where: { reportId },
+      where: {
+        reportId: params.reportId,
+      },
     });
 
     if (!report) {
       return NextResponse.json({ error: "Report not found" }, { status: 404 });
     }
 
-    return NextResponse.json(report, { status: 200 });
+    return NextResponse.json(report);
   } catch (error) {
     console.error("Error fetching report details:", error);
     return NextResponse.json(
@@ -31,7 +31,7 @@ export async function GET(
 
 export async function PATCH(
   request: Request,
-  context: { params: Promise<{ reportId: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
     const session = await getServerSession();
@@ -39,17 +39,14 @@ export async function PATCH(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { reportId } = await context.params; 
     const { status } = await request.json();
-
     const report = await prisma.report.update({
-      where: { reportId },
+      where: { id: params.id },
       data: { status },
     });
 
-    return NextResponse.json(report, { status: 200 });
+    return NextResponse.json(report);
   } catch (error) {
-    console.error("Error updating report:", error);
     return NextResponse.json(
       { error: "Error updating report" },
       { status: 500 }
