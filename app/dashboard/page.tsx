@@ -2,7 +2,7 @@
 
 import { signIn, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { Report, ReportStatus, ReportType } from '@/lib/generated/prisma' ;
+import { Report, ReportStatus, ReportType } from '@prisma/client' ;
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 

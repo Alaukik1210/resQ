@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 
-import { ReportStatus, ReportType } from '@/lib/generated/prisma' ;
+import { ReportStatus, ReportType } from '@prisma/client' ;
 import prisma from "@/lib/prisma";
 import { authOptions } from "@/lib/auth";
 
