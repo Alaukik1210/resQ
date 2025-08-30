@@ -17,6 +17,8 @@ interface ReportFormProps {
   onComplete: (data) => void;
 }
 
+export const dynamic = "force-dynamic";
+
 export function ReportForm({ onComplete }: ReportFormProps) {
   const [formData, setFormData] = useState({
     incidentType: "" as ReportType,
@@ -70,18 +72,33 @@ export function ReportForm({ onComplete }: ReportFormProps) {
     }
   };
 
-  const generateReportId = useCallback(() => {
-  const timestamp = Date.now().toString();
-  const randomBytes = window.crypto.getRandomValues(new Uint8Array(16));
-  const randomHex = Array.from(randomBytes)
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
+//   const generateReportId = useCallback(() => {
+//   const timestamp = Date.now().toString();
+//   const randomBytes = window.crypto.getRandomValues(new Uint8Array(16));
+//   const randomHex = Array.from(randomBytes)
+//     .map((b) => b.toString(16).padStart(2, "0"))
+//     .join("");
 
   
+//   return (timestamp + randomHex).slice(0, 16);
+// }, []);
+
+const generateReportId = useCallback(() => {
+  const timestamp = Date.now().toString();
+
+  let randomHex = "";
+  if (typeof window !== "undefined" && window.crypto) {
+    const randomBytes = window.crypto.getRandomValues(new Uint8Array(16));
+    randomHex = Array.from(randomBytes)
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+  } else {
+    // fallback for server-side (no window.crypto)
+    randomHex = Math.random().toString(16).slice(2, 18);
+  }
+
   return (timestamp + randomHex).slice(0, 16);
 }, []);
-
-
   const handleSumbit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
