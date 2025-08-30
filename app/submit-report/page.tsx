@@ -1,5 +1,8 @@
-"use client"
+"use client";
+
 import { ReportWizard } from "@/components/report/ReportWizard";
+
+export const dynamic = "force-dynamic";
 
 export default function SubmitReport() {
   return (

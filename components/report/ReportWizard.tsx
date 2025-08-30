@@ -3,11 +3,24 @@ import { useState } from "react"
 import { ReportForm } from "./Reportform";
 import { ReportSubmitted } from "./ReportFormCompleted";
 
+interface ReportData {
+  reportId: string;
+  type: "EMERGENCY" | "NON_EMERGENCY";
+  specificType: string;
+  title: string;
+  description: string;
+  location: string;
+  latitude: number | null;
+  longitude: number | null;
+  image: string | null;
+  status: string;
+}
+
 export function ReportWizard(){
     const [currentStep, setCurrentStep] = useState(1);
     const [reportData,setReportData] = useState(null);
 
-    const handleStepComplete = async (data) =>{
+    const handleStepComplete = async (data:ReportData) =>{
         setReportData({...reportData,...data});
 
         if(currentStep === 3){

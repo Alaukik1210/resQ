@@ -1,16 +1,25 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-interface FormData {
-  [key: string]: string | number | boolean | File;
+interface ReportData {
+  reportId: string;
+  type: "EMERGENCY" | "NON_EMERGENCY";
+  specificType: string;
+  title: string;
+  description: string;
+  location: string;
+  latitude: number | null;
+  longitude: number | null;
+  image: string | null;
+  status: string;
 }
 interface ReportSubmittedProps {
-  data: FormData;
-  onComplete: (data: FormData) => void;
+  data: ReportData;
+  onComplete: (data: ReportData) => void;
 }
 
 export function ReportSubmitted({ data }: ReportSubmittedProps) {
-  const reportId = String(data.reportId || "ERROR-ID-NOT-FOUND");
+  const reportId = (data.reportId || "ERROR-ID-NOT-FOUND");
   const router = useRouter();
 
   return (
