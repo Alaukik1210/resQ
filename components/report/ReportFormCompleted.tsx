@@ -4,14 +4,14 @@ import { useRouter } from "next/navigation";
 interface FormData {
   [key: string]: string | number | boolean | File;
 }
-
 interface ReportSubmittedProps {
   data: FormData;
   onComplete: (data: FormData) => void;
 }
 
 export function ReportSubmitted({ data }: ReportSubmittedProps) {
- const reportId = String(data.reportId || "ERROR-ID-NOT-FOUND");
+  const reportId = String(data.reportId || "ERROR-ID-NOT-FOUND");
+  const router = useRouter();
 
   return (
     <div className="text-center space-y-6">
