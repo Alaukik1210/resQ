@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useCallback } from "react";
 import { LocationInput } from "./LocationInput";
-import crypto from "crypto";
 import Image from "next/image";
 const REPORT_TYPES = [
   "Theft",
@@ -129,7 +128,7 @@ export function ReportForm({ onComplete }: ReportFormProps) {
           onClick={() =>
             setFormData((prev) => ({ ...prev, incidentType: "EMERGENCY" }))
           }
-          className={`p-6 rounded-2xl border-2 transition-all  cursor-pointer  cursor-pointer  duration-200 ${
+          className={`p-6 rounded-2xl border-2 transition-all  cursor-pointer  duration-200 ${
             formData.incidentType === "EMERGENCY"
               ? "bg-red-500/20 border-red-500 shadow-lg shadow-red-500/20"
               : "bg-zinc-900/50 border-zinc-800 hover:bg-red-500/10 hover:border-red-500/50"
