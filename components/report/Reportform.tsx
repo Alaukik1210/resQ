@@ -14,9 +14,20 @@ const REPORT_TYPES = [
 type ReportType = "EMERGENCY" | "NON_EMERGENCY";
 
 interface ReportFormProps {
-  onComplete: (data) => void;
+  onComplete: (data:ReportData) => void;
 }
-
+interface ReportData {
+  reportId: string;
+  type: ReportType;
+  specificType: string;
+  title: string;
+  description: string;
+  location: string;
+  latitude: number | null;
+  longitude: number | null;
+  image: string | null;
+  status: string;
+}
 export const dynamic = "force-dynamic";
 
 export function ReportForm({ onComplete }: ReportFormProps) {
@@ -84,26 +95,28 @@ export function ReportForm({ onComplete }: ReportFormProps) {
 // }, []);
 
 const generateReportId = useCallback(() => {
-  const timestamp = Date.now().toString();
+    const timestamp = Date.now().toString();
 
-  let randomHex = "";
-  if (typeof window !== "undefined" && window.crypto) {
-    const randomBytes = window.crypto.getRandomValues(new Uint8Array(16));
-    randomHex = Array.from(randomBytes)
-      .map((b) => b.toString(16).padStart(2, "0"))
-      .join("");
-  } else {
-    // fallback for server-side (no window.crypto)
-    randomHex = Math.random().toString(16).slice(2, 18);
-  }
+    let randomHex = "";
+    if (typeof window !== "undefined" && window.crypto && window.crypto.getRandomValues) {
+      const randomBytes = window.crypto.getRandomValues(new Uint8Array(16));
+      randomHex = Array.from(randomBytes)
+        .map((b) => b.toString(16).padStart(2, "0"))
+        .join("");
+    } else {
+      // Fallback for server-side or environments without crypto
+      randomHex = Math.random().toString(16).slice(2, 18).padEnd(32, "0");
+    }
 
-  return (timestamp + randomHex).slice(0, 16);
-}, []);
+    return (timestamp + randomHex).slice(0, 16);
+  }, []);
+
+  
   const handleSumbit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const reportData = {
+      const reportData:ReportData = {
         reportId: generateReportId(),
         type: formData.incidentType,
         specificType: formData.specificType,
