@@ -193,7 +193,8 @@ export default function Dashboard() {
                   </div>
                   {report.image && (
                     <Image
-                    fill
+                     width={250}
+                      height={250}
                       src={report.image}
                       alt="Report"
                       className="mt-4 rounded-lg border border-neutral-800"
